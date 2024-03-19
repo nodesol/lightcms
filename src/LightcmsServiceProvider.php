@@ -2,10 +2,10 @@
 
 namespace Nodesol\Lightcms;
 
-use Nodesol\Lightcms\Commands\UserMakeCommand;
 use Illuminate\Support\Facades\Config;
 use Nodesol\Lightcms\Commands\PageContentMakeCommand;
 use Nodesol\Lightcms\Commands\PageMakeCommand;
+use Nodesol\Lightcms\Commands\UserMakeCommand;
 use Nodesol\Lightcms\Models\LightcmsUser;
 use Nodesol\Lightcms\ViewComposers\LightCms;
 use Spatie\LaravelPackageTools\Package;
