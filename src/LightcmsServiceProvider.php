@@ -2,7 +2,7 @@
 
 namespace Nodesol\Lightcms;
 
-use App\Console\Commands\UserMakeCommand;
+use Nodesol\Lightcms\Commands\UserMakeCommand;
 use Illuminate\Support\Facades\Config;
 use Nodesol\Lightcms\Commands\PageContentMakeCommand;
 use Nodesol\Lightcms\Commands\PageMakeCommand;
