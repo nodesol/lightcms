@@ -2,9 +2,9 @@
 
 namespace Nodesol\Lightcms;
 
+use Nodesol\Lightcms\Commands\LightcmsCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Nodesol\Lightcms\Commands\LightcmsCommand;
 
 class LightcmsServiceProvider extends PackageServiceProvider
 {
