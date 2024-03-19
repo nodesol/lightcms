@@ -2,7 +2,13 @@
 
 namespace Nodesol\Lightcms;
 
+use App\Console\Commands\UserMakeCommand;
+use Illuminate\Support\Facades\Config;
 use Nodesol\Lightcms\Commands\LightcmsCommand;
+use Nodesol\Lightcms\Commands\PageContentMakeCommand;
+use Nodesol\Lightcms\Commands\PageMakeCommand;
+use Nodesol\Lightcms\Models\LightcmsUser;
+use Nodesol\Lightcms\ViewComposers\LightCms;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -19,7 +25,21 @@ class LightcmsServiceProvider extends PackageServiceProvider
             ->name('lightcms')
             ->hasConfigFile('lightcms')
             ->hasViews()
+            ->hasViewComposer('lightcms.*', LightCms::class)
             ->hasMigration('create_pages_table', 'create_page_contents_table', 'create_admin_users_table')
-            ->hasCommand(LightcmsCommand::class);
+            ->hasCommand(PageMakeCommand::class, PageContentMakeCommand::class, UserMakeCommand::class);
+    }
+
+    public function bootingPackage()
+    {
+        Config::set('auth.guards.lightcms', [
+            'driver' => 'session',
+            'provider' => 'lightcms'
+        ]);
+
+        Config::set('auth.providers.lightcms', [
+            'driver' => 'eloquent',
+            'model' => LightcmsUser::class,
+        ]);
     }
 }
