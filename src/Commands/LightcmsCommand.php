@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Nodesol\Lightcms\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LightcmsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'lightcms';
 
     public $description = 'My command';
 
