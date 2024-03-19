@@ -5,7 +5,7 @@ namespace Nodesol\Lightcms\ViewComposers;
 use Illuminate\Contracts\View\View;
 use Nodesol\Lightcms\Models\Page;
 
-class LightCms
+class Lightcms
 {
     public function compose(View $view)
     {

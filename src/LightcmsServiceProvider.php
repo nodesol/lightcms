@@ -7,7 +7,7 @@ use Nodesol\Lightcms\Commands\PageContentMakeCommand;
 use Nodesol\Lightcms\Commands\PageMakeCommand;
 use Nodesol\Lightcms\Commands\UserMakeCommand;
 use Nodesol\Lightcms\Models\LightcmsUser;
-use Nodesol\Lightcms\ViewComposers\LightCms;
+use Nodesol\Lightcms\ViewComposers\Lightcms;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -24,7 +24,7 @@ class LightcmsServiceProvider extends PackageServiceProvider
             ->name('lightcms')
             ->hasConfigFile('lightcms')
             ->hasViews()
-            ->hasViewComposer('lightcms.*', LightCms::class)
+            ->hasViewComposer('lightcms.*', Lightcms::class)
             ->hasMigration('create_pages_table', 'create_page_contents_table', 'create_admin_users_table')
             ->hasCommand(PageMakeCommand::class, PageContentMakeCommand::class, UserMakeCommand::class);
     }
