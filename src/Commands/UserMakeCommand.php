@@ -37,9 +37,8 @@ class UserMakeCommand extends Command implements PromptsForMissingInput
             'email' => $this->argument('email'),
             'password' => Hash::make($this->argument('password')),
         ]);
-        $this->comment("User Created: ");
+        $this->comment('User Created: ');
         $this->output($user);
-
 
         return self::SUCCESS;
     }

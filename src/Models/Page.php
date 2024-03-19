@@ -18,14 +18,16 @@ class Page extends Model
         return $this->hasMany(PageContent::class);
     }
 
-    public function data():Attribute {
+    public function data(): Attribute
+    {
         $contents = $this->contents;
         $data = [];
         foreach ($contents as $content) {
             $data[$content->name] = $content->value;
         }
+
         return Attribute::make(
-            get: fn() => $data,
+            get: fn () => $data,
         );
     }
 }

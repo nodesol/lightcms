@@ -8,11 +8,11 @@ class Lightcms
 {
     public function view(?string $view = null, array $data = [])
     {
-        if(isset($data['page'])) {
+        if (isset($data['page'])) {
             $page = Page::query()
-            ->whereName($data['page'])
-            ->orWhere('id', $data['page'])
-            ->first();
+                ->whereName($data['page'])
+                ->orWhere('id', $data['page'])
+                ->first();
             $data['contents'] = $page->data;
 
             return view($view, $data);

@@ -4,7 +4,6 @@ namespace Nodesol\Lightcms;
 
 use App\Console\Commands\UserMakeCommand;
 use Illuminate\Support\Facades\Config;
-use Nodesol\Lightcms\Commands\LightcmsCommand;
 use Nodesol\Lightcms\Commands\PageContentMakeCommand;
 use Nodesol\Lightcms\Commands\PageMakeCommand;
 use Nodesol\Lightcms\Models\LightcmsUser;
@@ -34,7 +33,7 @@ class LightcmsServiceProvider extends PackageServiceProvider
     {
         Config::set('auth.guards.lightcms', [
             'driver' => 'session',
-            'provider' => 'lightcms'
+            'provider' => 'lightcms',
         ]);
 
         Config::set('auth.providers.lightcms', [

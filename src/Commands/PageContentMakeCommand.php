@@ -37,18 +37,18 @@ class PageContentMakeCommand extends Command implements PromptsForMissingInput
             ->whereName($this->argument('page'))
             ->orWhere('id', $this->argument('page'))
             ->first();
-        if(!$page->id) {
-            $this->error("Page Not Found");
+        if (! $page->id) {
+            $this->error('Page Not Found');
+
             return self::FAILURE;
         }
         $content = PageContent::create([
             'page_id' => $page->id,
             'name' => $this->argument('name'),
-            ...$this->options()
+            ...$this->options(),
         ]);
-        $this->comment("Page Created: ");
+        $this->comment('Page Created: ');
         $this->output($content);
-
 
         return self::SUCCESS;
     }

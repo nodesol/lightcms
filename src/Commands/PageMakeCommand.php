@@ -36,11 +36,10 @@ class PageMakeCommand extends Command implements PromptsForMissingInput
         $page = Page::create([
             'name' => $this->argument('name'),
             'slug' => $this->argument('slug'),
-            ...$this->options()
+            ...$this->options(),
         ]);
-        $this->comment("Page Created: ");
+        $this->comment('Page Created: ');
         $this->output($page);
-
 
         return self::SUCCESS;
     }
