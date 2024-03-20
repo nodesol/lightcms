@@ -29,7 +29,7 @@ class LightcmsServiceProvider extends PackageServiceProvider
             ->hasMigrations(
                 'create_pages_table',
                 'create_page_contents_table',
-                'create_admin_users_table'
+                'create_lightcms_users_table'
             )
             ->hasCommands(
                 PageMakeCommand::class,

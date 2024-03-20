@@ -21,8 +21,8 @@ class AuthController extends BaseController
             'email' => ['required'],
             'password' => ['required'],
         ]);
-        if (auth(config('lightcms.guard'))->attempt($data)) {
-            redirect()->route('lightcms-admin-dashboard');
+        if(auth(config("lightcms.guard"))->attempt($data)) {
+            return redirect()->route("lightcms-admin-dashboard");
         } else {
             return redirect()->route('lightcms-admin-login');
         }
