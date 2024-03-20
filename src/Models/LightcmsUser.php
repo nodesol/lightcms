@@ -10,5 +10,6 @@ use Laravel\Sanctum\HasApiTokens;
 class LightcmsUser extends User
 {
     use HasApiTokens, HasFactory, Notifiable;
+
     protected $fillable = ['name', 'email', 'password'];
 }

@@ -11,14 +11,14 @@ class Lightcms
     {
         $data = $view->getData();
         if (isset($data['page'])) {
-            if($data['page'] instanceof Page) {
+            if ($data['page'] instanceof Page) {
                 $page = $data['page'];
             } else {
                 $page = Page::query()
-                ->whereName($data['page'])
-                ->orWhere('id', $data['page'])
-                ->orWhere('slug', $data['page'])
-                ->first();
+                    ->whereName($data['page'])
+                    ->orWhere('id', $data['page'])
+                    ->orWhere('slug', $data['page'])
+                    ->first();
             }
 
             if ($page->id) {

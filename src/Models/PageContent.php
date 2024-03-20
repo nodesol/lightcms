@@ -12,21 +12,24 @@ class PageContent extends Model
 
     protected $fillable = ['name', 'page_id', 'type', 'data'];
 
-    public function structure(): Attribute {
+    public function structure(): Attribute
+    {
         $data = json_decode($this->data, true);
+
         return Attribute::make(
             get: fn () => $data['structure'] ?? []
         );
     }
 
-    public function value(): Attribute {
+    public function value(): Attribute
+    {
         $value = '';
         $data = json_decode($this->data, true);
         switch ($this->type) {
-            case "list":
+            case 'list':
                 $value = $data;
                 break;
-            case "objects":
+            case 'objects':
                 $value = $data['items'] ?? [];
                 break;
             default:

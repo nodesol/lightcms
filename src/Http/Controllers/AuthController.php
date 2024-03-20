@@ -12,26 +12,28 @@ class AuthController extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function login(Request $request) {
-        if(auth(config("lightcms.guard"))->check()) {
-            return redirect()->route("lightcms-admin-dashboard");
+    public function login(Request $request)
+    {
+        if (auth(config('lightcms.guard'))->check()) {
+            return redirect()->route('lightcms-admin-dashboard');
         }
         $data = $request->validate([
-            "email" => ["required"],
-            "password" => ["required"]
+            'email' => ['required'],
+            'password' => ['required'],
         ]);
-        if(auth(config("lightcms.guard"))->attempt($data)) {
-            redirect()->route("lightcms-admin-dashboard");
+        if (auth(config('lightcms.guard'))->attempt($data)) {
+            redirect()->route('lightcms-admin-dashboard');
         } else {
-            return redirect()->route("lightcms-admin-login");
+            return redirect()->route('lightcms-admin-login');
         }
     }
 
-    public function logout() {
-        if(auth(config("lightcms.guard"))->check()) {
-            auth(config("lightcms.guard"))->logout();
+    public function logout()
+    {
+        if (auth(config('lightcms.guard'))->check()) {
+            auth(config('lightcms.guard'))->logout();
         }
 
-        return redirect()->route("lightcms-admin-login");
+        return redirect()->route('lightcms-admin-login');
     }
 }

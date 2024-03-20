@@ -23,7 +23,7 @@ class LightcmsServiceProvider extends PackageServiceProvider
         $package
             ->name('lightcms')
             ->hasConfigFile('lightcms')
-            ->hasViews("lightcms")
+            ->hasViews('lightcms')
             ->hasViewComposer('lightcms.*', Lightcms::class)
             ->hasRoute('lightcms')
             ->hasMigrations(
@@ -40,7 +40,7 @@ class LightcmsServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
-        $guard = config("lightcms.guard");
+        $guard = config('lightcms.guard');
         Config::set("auth.guards.$guard", [
             'driver' => 'session',
             'provider' => 'lightcms',
