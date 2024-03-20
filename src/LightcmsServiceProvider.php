@@ -23,20 +23,30 @@ class LightcmsServiceProvider extends PackageServiceProvider
         $package
             ->name('lightcms')
             ->hasConfigFile('lightcms')
-            ->hasViews()
+            ->hasViews("lightcms")
             ->hasViewComposer('lightcms.*', Lightcms::class)
-            ->hasMigration('create_pages_table', 'create_page_contents_table', 'create_admin_users_table')
-            ->hasCommand(PageMakeCommand::class, PageContentMakeCommand::class, UserMakeCommand::class);
+            ->hasRoute('lightcms')
+            ->hasMigrations(
+                'create_pages_table',
+                'create_page_contents_table',
+                'create_admin_users_table'
+            )
+            ->hasCommands(
+                PageMakeCommand::class,
+                PageContentMakeCommand::class,
+                UserMakeCommand::class
+            );
     }
 
     public function bootingPackage()
     {
-        Config::set('auth.guards.lightcms', [
+        $guard = config("lightcms.guard");
+        Config::set("auth.guards.$guard", [
             'driver' => 'session',
             'provider' => 'lightcms',
         ]);
 
-        Config::set('auth.providers.lightcms', [
+        Config::set("auth.providers.$guard", [
             'driver' => 'eloquent',
             'model' => LightcmsUser::class,
         ]);

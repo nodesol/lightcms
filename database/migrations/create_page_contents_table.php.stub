@@ -11,13 +11,13 @@ return new class extends Migration
         Schema::create('page_contents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('page_id')
-                ->references('pages')
-                ->on('id')
+                ->references('id')
+                ->on('pages')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->string('name');
-            $table->enum('type', ['text', 'textarea', 'list', 'boolean']);
-            $table->json('data');
+            $table->enum('type', ['text', 'textarea', 'list', 'object', 'objects'])->default('text');
+            $table->json('data')->default('{}');
             $table->timestamps();
         });
     }

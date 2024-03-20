@@ -8,16 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 
 class PageContent extends Model
 {
-    protected $fillable = ['name', 'page_id', 'type', 'data'];
-
     use HasFactory;
 
-    public function value(): Attribute
-    {
+    protected $fillable = ['name', 'page_id', 'type', 'data'];
+
+    public function structure(): Attribute {
+        $data = json_decode($this->data, true);
+        return Attribute::make(
+            get: fn () => $data['structure'] ?? []
+        );
+    }
+
+    public function value(): Attribute {
         $value = '';
+        $data = json_decode($this->data, true);
         switch ($this->type) {
+            case "list":
+                $value = $data;
+                break;
+            case "objects":
+                $value = $data['items'] ?? [];
+                break;
             default:
-                $value = $this->data['value'];
+                $value = $data['value'] ?? null;
         }
 
         return Attribute::make(

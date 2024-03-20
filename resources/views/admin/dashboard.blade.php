@@ -1,0 +1,1 @@
+@extends("lightcms::admin.layout")

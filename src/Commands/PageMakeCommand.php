@@ -16,9 +16,9 @@ class PageMakeCommand extends Command implements PromptsForMissingInput
     protected $signature = 'make:page
                             {name : Page Name}
                             {slug : Page Slug}
-                            {--title="" : Page Title}
-                            {--meta_keywords="" : Meta Keywords}
-                            {--meta_description="" : Meta Description}
+                            {--title= : Page Title}
+                            {--meta_keywords= : Meta Keywords}
+                            {--meta_description= : Meta Description}
                             ';
 
     /**
@@ -39,7 +39,7 @@ class PageMakeCommand extends Command implements PromptsForMissingInput
             ...$this->options(),
         ]);
         $this->comment('Page Created: ');
-        $this->output($page);
+        $this->table(['name', 'slug', 'title', 'meta_description', 'meta_keywords'], [$page->only('name', 'slug', 'title', 'meta_description', 'meta_keywords')]);
 
         return self::SUCCESS;
     }

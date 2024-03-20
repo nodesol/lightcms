@@ -17,8 +17,7 @@ class PageContentMakeCommand extends Command implements PromptsForMissingInput
     protected $signature = 'make:page-content
                             {page : Page Name or ID}
                             {name : Content Name}
-                            {--type="text" : Content Type}
-                            {--data="" : Content Data}
+                            {--type=text : Content Type}
                             ';
 
     /**
@@ -47,8 +46,8 @@ class PageContentMakeCommand extends Command implements PromptsForMissingInput
             'name' => $this->argument('name'),
             ...$this->options(),
         ]);
-        $this->comment('Page Created: ');
-        $this->output($content);
+        $this->comment('Content Created: ');
+        $this->table(['name', 'page_id', 'type'], [$content->only('name', 'page_id', 'type')]);
 
         return self::SUCCESS;
     }
