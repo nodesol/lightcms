@@ -29,11 +29,14 @@ Route::group(['middleware' => 'web'], function () {
         Route::group(['middleware' => 'auth:lightcms'], function () {
             Route::any('logout', [AuthController::class, 'logout'])->name('lightcms-admin-logout');
 
-            Route::resource('pages', PageController::class)->only('index', 'edit', 'update')->names([
+            Route::resource('pages', PageController::class)->only('index', 'edit', 'update', 'store')->names([
+                'store' => 'lightcms-admin-pages-store',
                 'index' => 'lightcms-admin-pages-index',
                 'edit' => 'lightcms-admin-pages-edit',
                 'update' => 'lightcms-admin-pages-update',
             ]);
+            Route::get("pages/{page}/contents", [PageController::class, 'contents'])->name("lightcms-admin-contents-index");
+            Route::post("pages/{page}/contents", [PageController::class, 'contentStore'])->name("lightcms-admin-contents-store");
         });
     });
 

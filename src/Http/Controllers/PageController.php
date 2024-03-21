@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
 use Nodesol\Lightcms\Models\Page;
+use Nodesol\Lightcms\Models\PageContent;
 
 class PageController extends BaseController
 {
@@ -19,6 +20,16 @@ class PageController extends BaseController
         $pages = Page::all();
 
         return view('lightcms::admin.pages.index', ['pages' => $pages]);
+    }
+
+    public function store(Request $request) {
+        $data = $request->validate([
+            "name" => ["required", "unique:pages,name"],
+            "slug" => ["required", "unique:pages,slug"],
+        ]);
+        $page = Page::create($data);
+
+        return redirect()->route("lightcms-admin-pages-index");
     }
 
     public function edit($id)
@@ -32,6 +43,13 @@ class PageController extends BaseController
     {
         $page = Page::find($id);
 
+        $request->validate([
+            "name" => ["required", "unique:pages,name,".$id],
+            "slug" => ["required", "unique:pages,slug,".$id],
+        ]);
+
+        $page->name = $request->input('name');
+        $page->slug = $request->input('slug');
         $page->title = $request->input('title');
         $page->meta_description = $request->input('meta_description');
         $page->meta_keywords = $request->input('meta_keywords');
@@ -64,5 +82,54 @@ class PageController extends BaseController
         }
 
         return redirect()->route('lightcms-admin-pages-index');
+    }
+
+    public function contents($id) {
+        $page = Page::find($id);
+        $page->load("contents");
+
+        return view('lightcms::admin.pages.contents', ['page' => $page]);
+    }
+
+    public function contentStore(Request $request, $id) {
+        $page = Page::findOrFail($id);
+        $request->validate([
+        "name" => ["required"/*, "unique:page_contents,name"*/],
+            "type" => ["required", "in:text,textarea,list,image,objects"],
+        ]);
+        $data = ["value" => ""];
+
+        switch($request->input("type")) {
+            case "list":
+                $data = $request->input("value", []);
+                break;
+            case "objects":
+                $data = ["structure" => [], "items" => []];
+                foreach($request->input("value.name", []) as $key => $name) {
+                    $data["structure"][$name] = $request->input("value.type.".$key);
+                }
+                break;
+            case "image":
+                if(!$request->hasFile('value')) {
+                    $data = ["path" => ""];
+                } else {
+                    $file_path = config("lightcms.image_path");
+                    if(config("filesystems.default") == "local") {
+                        $file_path = "public/".$file_path;
+                    }
+                    $data = ["path" => $request->file('value')->store($file_path, ['disk' => config("lightcms.storage_disk")])];
+                }
+                break;
+            default:
+                $data = ["value" => $request->input("value", "")];
+        }
+        $content = PageContent::create([
+            "name" => $request->input("name"),
+            "type" => $request->input("type"),
+            "page_id" => $page->id,
+            "data" => json_encode($data),
+        ]);
+
+        return redirect()->route("lightcms-admin-contents-index", $page->id);
     }
 }

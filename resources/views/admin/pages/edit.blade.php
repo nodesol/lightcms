@@ -11,6 +11,18 @@
             </div>
             <div class="col-12 col-md-6">
                 <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" name="name" value="{{$page->name}}">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
+                    <label>Slug</label>
+                    <input type="text" class="form-control" name="slug" value="{{$page->slug}}">
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="form-group">
                     <label>Title</label>
                     <input type="text" class="form-control" name="title" value="{{$page->title}}">
                 </div>

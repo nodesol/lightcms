@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
     </head>
-    <body>
-        <div class="container-fluid d-flex p-0" style="height: 100vh; background: linear-gradient(90deg, rgba(110,190,67,1) 0%, rgba(19,136,214,1) 100%);">
+    <body style="background: linear-gradient(90deg, {{config("lightcms.colors.0")}} 0%, {{config("lightcms.colors.1")}} 100%);">
+        <div class="container-fluid d-flex p-0" style="min-height: 100vh;">
             <div class="row justify-content-center align-self-center w-100">
                 <div class="col-12 col-sm-8 col-md-6 col-lg-4 p-4 bg-white rounded" >
                     <h4 class="text-center">{{ config('app.name') }} Login</h4>
