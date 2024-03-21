@@ -2,7 +2,7 @@
 
 @section("content")
     <h4>Edit Page: {{$page->name}}</h4>
-    <form id="edit-form" method="post" action="{{route("lightcms-admin-pages-update", $page->id)}}">
+    <form id="edit-form" method="post" action="{{route("lightcms-admin-pages-update", $page->id)}}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="_method" value="put" />
         <div class="row gx-4">
@@ -37,6 +37,14 @@
                                 <div class="form-group mt-2">
                                     <label class="fw-bold">{{$content->name}}</label>
                                     <textarea class="form-control" name="contents[{{$content->name}}]">{{$content->value}}</textarea>
+                                </div>
+                                @break
+                            @case("image")
+                                <div class="form-group mt-2 image-component">
+                                    <label class="fw-bold w-100">{{$content->name}}</label>
+                                    <input name="contents[{{$content->name}}]" type="file" class="form-control mb-2 image-input" />
+                                    <img class="img img-responsive" src="{{$content->value}}" style="max-width: 100%; max-height: 300px;" />
+                                    {{-- <textarea class="form-control" name="contents[{{$content->name}}]">{{$content->value}}</textarea> --}}
                                 </div>
                                 @break
                             @case("list")
@@ -121,6 +129,14 @@
 @section("script")
     <script type="text/javascript">
         $(document).ready(function(){
+            $(".image-input").change(function(){
+                var reader = new FileReader();
+                element = $(this).parents(".image-component").find(".img");
+                reader.onload = function(e) {
+                    element.attr('src', e.target.result);
+                }
+                reader.readAsDataURL($(this)[0].files[0]);
+            })
             $(".list-add").click(function(){
                 let data = $(this).parents(".input-group").children(".form-control").val()
                 $(this).parents(".list-component").children(".list-group").append("\

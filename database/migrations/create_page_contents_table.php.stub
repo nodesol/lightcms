@@ -16,7 +16,7 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
             $table->string('name');
-            $table->enum('type', ['text', 'textarea', 'list', 'object', 'objects'])->default('text');
+            $table->enum('type', ['text', 'textarea', 'list', 'image', 'objects'])->default('text');
             $table->json('data')->default('{}');
             $table->timestamps();
         });

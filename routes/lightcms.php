@@ -5,16 +5,9 @@ use Nodesol\Lightcms\Http\Controllers\AuthController;
 use Nodesol\Lightcms\Http\Controllers\PageController;
 use Nodesol\Lightcms\Models\Page;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['middleware' => 'web'], function () {
 
-Route::group(['prefix' => config('lightcms.url_prefix'), 'middleware' => 'web'], function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
-
-    Route::group(['prefix' => 'admin'], function () {
+    Route::group(['prefix' => config('lightcms.admin_url_prefix')], function () {
         Route::get('/', function () {
             if (! auth(config('lightcms.guard'))->check()) {
                 return redirect()->route('lightcms-admin-login');
@@ -44,7 +37,7 @@ Route::group(['prefix' => config('lightcms.url_prefix'), 'middleware' => 'web'],
         });
     });
 
-    Route::group(['prefix' => 'pages'], function () {
+    Route::group(['prefix' => config('lightcms.pages_url_prefix')], function () {
         Route::get('{slug}', function ($slug) {
             $page = Page::whereSlug($slug)->first();
 

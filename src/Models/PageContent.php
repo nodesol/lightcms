@@ -5,6 +5,7 @@ namespace Nodesol\Lightcms\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class PageContent extends Model
 {
@@ -31,6 +32,11 @@ class PageContent extends Model
                 break;
             case 'objects':
                 $value = $data['items'] ?? [];
+                break;
+            case 'image':
+                if($data['path']) {
+                    $value = Storage::disk(config("lightcms.storage_disk"))->url($data['path']);
+                }
                 break;
             default:
                 $value = $data['value'] ?? null;
