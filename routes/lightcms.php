@@ -35,8 +35,8 @@ Route::group(['middleware' => 'web'], function () {
                 'edit' => 'lightcms-admin-pages-edit',
                 'update' => 'lightcms-admin-pages-update',
             ]);
-            Route::get("pages/{page}/contents", [PageController::class, 'contents'])->name("lightcms-admin-contents-index");
-            Route::post("pages/{page}/contents", [PageController::class, 'contentStore'])->name("lightcms-admin-contents-store");
+            Route::get('pages/{page}/contents', [PageController::class, 'contents'])->name('lightcms-admin-contents-index');
+            Route::post('pages/{page}/contents', [PageController::class, 'contentStore'])->name('lightcms-admin-contents-store');
         });
     });
 
