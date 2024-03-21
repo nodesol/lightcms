@@ -3,7 +3,6 @@
 @section("content")
 
     <h4>Pages </h4>
-    @foreach($pages as $page)
     <table class="table">
         <thead>
           <tr>
@@ -28,5 +27,4 @@
 
         </tbody>
       </table>
-    @endforeach
 @endsection
