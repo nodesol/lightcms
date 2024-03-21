@@ -2,7 +2,7 @@
 
 // config for Nodesol/Lightcms
 return [
-    'storage_disk' => config("filesystems.default"),
+    'storage_disk' => config('filesystems.default'),
     'guard' => 'lightcms',
     'image_path' => 'lightcms',
     'admin_url_prefix' => 'lightcms/admin',

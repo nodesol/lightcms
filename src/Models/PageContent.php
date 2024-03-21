@@ -34,8 +34,8 @@ class PageContent extends Model
                 $value = $data['items'] ?? [];
                 break;
             case 'image':
-                if($data['path']) {
-                    $value = Storage::disk(config("lightcms.storage_disk"))->url($data['path']);
+                if ($data['path']) {
+                    $value = Storage::disk(config('lightcms.storage_disk'))->url($data['path']);
                 }
                 break;
             default:

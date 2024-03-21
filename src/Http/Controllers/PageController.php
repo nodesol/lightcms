@@ -40,16 +40,16 @@ class PageController extends BaseController
         foreach ($page->contents as $content) {
             switch ($content->type) {
                 case 'image':
-                    if(!$request->hasFile('contents.'.$content->name)) {
+                    if (! $request->hasFile('contents.'.$content->name)) {
                         continue 2;
                     }
-                    $old_path = json_decode($content->data,true)['path'];
-                    $file_path = config("lightcms.image_path");
-                    if(config("filesystems.default") == "local") {
-                        $file_path = "public/".$file_path;
+                    $old_path = json_decode($content->data, true)['path'];
+                    $file_path = config('lightcms.image_path');
+                    if (config('filesystems.default') == 'local') {
+                        $file_path = 'public/'.$file_path;
                     }
-                    $content->data = json_encode(["path" => $request->file('contents.'.$content->name)->store($file_path, ['disk' => config("lightcms.storage_disk")])]);
-                    Storage::disk(config("lightcms.storage_disk"))->delete($old_path);
+                    $content->data = json_encode(['path' => $request->file('contents.'.$content->name)->store($file_path, ['disk' => config('lightcms.storage_disk')])]);
+                    Storage::disk(config('lightcms.storage_disk'))->delete($old_path);
                     break;
                 case 'list':
                     $content->data = $request->input('contents.'.$content->name);
