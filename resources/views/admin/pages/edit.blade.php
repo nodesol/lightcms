@@ -283,21 +283,14 @@
 
                 });
                 $(".objects-component").each(function(){
-                    let items = "[";
-                    $(this).find(".list-group-item").each(function(){
-                        items += "{"
+                    let name = $(this).data("name")
+                    $(this).find(".list-group-item").each(function(index){
                         $(this).find(".objects-value").each(function(){
-                            items += "\"" + $(this).data("key") + "\": \"" + $(this).text() + "\","
+                            form.append("<input type=hidden name=\"contents[" + name + "]["+index+"]["+$(this).data("key")+"]\" value=\"" + $(this).text() + "\" />")
                         })
-                        items = items.substr(0, items.length - 1)
-                        items += "},"
                     })
-                    items = items.substr(0, items.length - 1)
-                    items += "]"
-                    form.append("<input type=hidden name=\"contents[" + $(this).data("name") + "]\" value='" + items + "' />")
 
                 });
-                console.log(form)
 
                 form.submit();
             })
