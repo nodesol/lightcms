@@ -44,7 +44,7 @@ class PageContentMakeCommand extends Command implements PromptsForMissingInput
         $content = PageContent::create([
             'page_id' => $page->id,
             'name' => $this->argument('name'),
-            ...$this->options(),
+            'type' => $this->option('type'),
         ]);
         $this->comment('Content Created: ');
         $this->table(['name', 'page_id', 'type'], [$content->only('name', 'page_id', 'type')]);

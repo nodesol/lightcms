@@ -36,7 +36,9 @@ class PageMakeCommand extends Command implements PromptsForMissingInput
         $page = Page::create([
             'name' => $this->argument('name'),
             'slug' => $this->argument('slug'),
-            ...$this->options(),
+            'title' => $this->option('title'),
+            'meta_keywords' => $this->option('meta_keywords'),
+            'meta_description' => $this->option('meta_description'),
         ]);
         $this->comment('Page Created: ');
         $this->table(['name', 'slug', 'title', 'meta_description', 'meta_keywords'], [$page->only('name', 'slug', 'title', 'meta_description', 'meta_keywords')]);
