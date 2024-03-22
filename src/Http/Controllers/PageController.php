@@ -77,10 +77,10 @@ class PageController extends BaseController
                 case 'objects':
                     $data = $request->input('contents.'.$content->name);
                     $data = preg_replace('/[[:cntrl:]]/', '', $data); //clean it
-                    if($data = json_decode($data, true)) {
+                    if ($data = json_decode($data, true)) {
                         $content->data = json_encode(['structure' => $content->structure, 'items' => $data]);
                     } else {
-                        $errors[] = ['msg' => "Unable to save data for field '" . $content->name . "'"];
+                        $errors[] = ['msg' => "Unable to save data for field '".$content->name."'"];
                     }
                     break;
                 default:
@@ -89,7 +89,7 @@ class PageController extends BaseController
             $content->save();
         }
 
-        if(count($errors)) {
+        if (count($errors)) {
             return redirect()->back()->withErrors($errors);
         }
 
