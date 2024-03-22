@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * @property int    $id
+ * @property int $id
  * @property string $name
- * @property int    $page_id
+ * @property int $page_id
  * @property string $type
  * @property string $data
- *
- * @property array  $structure
- * @property mixed  $value
+ * @property array $structure
+ * @property mixed $value
  */
 class PageContent extends Model
 {
