@@ -7,6 +7,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int    $id
+ * @property string $name
+ * @property string $slug
+ * @property string $title
+ * @property string $meta_description
+ * @property string $meta_keywords
+ *
+ * @property array  $data
+ * @property Collection $contents
+ */
 class Page extends Model
 {
     use HasFactory;
