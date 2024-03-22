@@ -56,6 +56,7 @@ class PageController extends BaseController
         $page->meta_keywords = $request->input('meta_keywords');
         $page->save();
 
+        $errors = [];
         foreach ($page->contents as $content) {
             switch ($content->type) {
                 case 'image':
@@ -74,12 +75,22 @@ class PageController extends BaseController
                     $content->data = $request->input('contents.'.$content->name);
                     break;
                 case 'objects':
-                    $content->data = json_encode(['structure' => $content->structure, 'items' => json_decode($request->input('contents.'.$content->name), true)]);
+                    $data = $request->input('contents.'.$content->name);
+                    $data = preg_replace('/[[:cntrl:]]/', '', $data); //clean it
+                    if($data = json_decode($data, true)) {
+                        $content->data = json_encode(['structure' => $content->structure, 'items' => $data]);
+                    } else {
+                        $errors[] = ['msg' => "Unable to save data for field '" . $content->name . "'"];
+                    }
                     break;
                 default:
                     $content->data = json_encode(['value' => $request->input('contents.'.$content->name)]);
             }
             $content->save();
+        }
+
+        if(count($errors)) {
+            return redirect()->back()->withErrors($errors);
         }
 
         return redirect()->route('lightcms-admin-pages-index');
