@@ -43,7 +43,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::group(['prefix' => config('lightcms.pages_url_prefix')], function () {
         Route::get('{slug}', function ($slug) {
             $page = Page::whereSlug($slug)->first();
-            if(!$page || !$page->id){
+            if (! $page || ! $page->id) {
                 abort(404);
             }
 
